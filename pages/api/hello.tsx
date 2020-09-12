@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   async function sendText(thread: DirectThreadEntity, text: string) {
-    console.log(await thread.broadcastText(text));
+    await thread.broadcastText(text);
   }
 
   console.log(req.method)
@@ -33,10 +33,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const [thread] = await ig.feed.directInbox().records();
 
     for(let i = 0;i<time;i++){
-      sendText(thread,text);
+      await sendText(thread,text+i);
       await sleep(100);
     }
     
   }
+
   res.send('OK')
 }
