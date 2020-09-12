@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const [thread] = await ig.feed.directInbox().records();
 
     for(let i = 0;i<time;i++){
-      await sendText(thread,text+i);
+      await sendText(thread,text);
       await sleep(100);
     }
     
