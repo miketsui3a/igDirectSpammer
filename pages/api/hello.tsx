@@ -2,6 +2,7 @@
 
 import { DirectThreadEntity, IgApiClient } from 'instagram-private-api';
 import { NextApiRequest, NextApiResponse } from 'next'
+import  moment  from 'moment'
 
 const ig = new IgApiClient();
 
@@ -23,20 +24,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   console.log(req.method)
 
-  if(req.method==='POST'){
+  if (req.method === 'POST') {
     const username: string = req.body.username;
     const password: string = req.body.password;
     const text: string = req.body.text;
     const time: number = req.body.time;
 
-    await login(username,password);
+    await login(username, password);
     const [thread] = await ig.feed.directInbox().records();
 
-    for(let i = 0;i<time;i++){
-      await sendText(thread,text);
+    for (let i = 0; i < time; i++) {
+      if (i % 100 === 0 && i != 0) {
+        await sleep(30000);
+      }
+      await sendText(thread, text);
       await sleep(100);
     }
-    
+
   }
 
   res.send('OK')

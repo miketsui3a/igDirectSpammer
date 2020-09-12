@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "instagram-private-api": "^1.42.0",
+    "moment": "^2.27.0",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1"
